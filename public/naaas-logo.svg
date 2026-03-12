@@ -1,0 +1,86 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE566"/>
+      <stop offset="30%" stop-color="#C9A84C"/>
+      <stop offset="70%" stop-color="#8B6310"/>
+      <stop offset="100%" stop-color="#C9A84C"/>
+    </linearGradient>
+    <linearGradient id="goldDiamond" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE566"/>
+      <stop offset="35%" stop-color="#D4AA50"/>
+      <stop offset="65%" stop-color="#8B6310"/>
+      <stop offset="100%" stop-color="#C9A84C"/>
+    </linearGradient>
+    <linearGradient id="silverAA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8E8E8"/>
+      <stop offset="30%" stop-color="#B0B8C8"/>
+      <stop offset="60%" stop-color="#8090A8"/>
+      <stop offset="100%" stop-color="#C0C8D8"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE566"/>
+      <stop offset="50%" stop-color="#C9A84C"/>
+      <stop offset="100%" stop-color="#A07830"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Dark navy background -->
+  <rect width="240" height="240" rx="6" fill="#1B2A50"/>
+
+  <!-- Gold border frame -->
+  <rect x="3" y="3" width="234" height="234" rx="4" fill="none" stroke="url(#goldFrame)" stroke-width="3.5"/>
+
+  <!-- Gold diamond shape (rotated square) centered at 120,108 -->
+  <!-- Outer diamond border -->
+  <rect x="72" y="60" width="96" height="96" rx="16"
+        fill="#1B2A50"
+        stroke="url(#goldDiamond)" stroke-width="7"
+        transform="rotate(45 120 108)"
+        filter="url(#shadow)"/>
+
+  <!-- N letter in gold -->
+  <text x="78" y="118"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900"
+        font-size="28"
+        fill="url(#goldText)"
+        filter="url(#shadow)">N</text>
+
+  <!-- Stylized AA in silver/chrome -->
+  <text x="96" y="121"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900"
+        font-size="34"
+        fill="url(#silverAA)"
+        filter="url(#shadow)">AA</text>
+
+  <!-- S letter in gold -->
+  <text x="153" y="118"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900"
+        font-size="28"
+        fill="url(#goldText)"
+        filter="url(#shadow)">S</text>
+
+  <!-- NAAAS HOLDING text -->
+  <text x="120" y="175"
+        font-family="'Arial Black', Arial, sans-serif"
+        font-weight="900"
+        font-size="18"
+        fill="url(#goldText)"
+        text-anchor="middle"
+        letter-spacing="3">NAAAS HOLDING</text>
+
+  <!-- VENTURE BD LTD text -->
+  <text x="120" y="198"
+        font-family="Arial, sans-serif"
+        font-weight="700"
+        font-size="13"
+        fill="url(#goldText)"
+        text-anchor="middle"
+        letter-spacing="2.5">VENTURE BD LTD</text>
+</svg>
