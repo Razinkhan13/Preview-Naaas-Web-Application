@@ -9,7 +9,7 @@ export default function AboutSection() {
           NAAAS HOLDING GROUP
         </h2>
         <p className="mt-2 text-sm text-gray-500 tracking-widest uppercase">
-          مجموعة ناس القابضة
+          NAAAS Holding Group
         </p>
         <div className="mt-6 max-w-2xl mx-auto">
           <p className="text-gray-600 leading-relaxed">
