@@ -1,5 +1,6 @@
 {
   "name": "naaas-preview",
+  "name": "naaas-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
