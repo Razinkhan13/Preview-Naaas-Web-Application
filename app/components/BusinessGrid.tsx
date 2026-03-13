@@ -1,41 +1,55 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 const businesses = [
   {
     id: 1,
     name: "NAAAS",
     subtitle: "LOGISTICS",
-    color: "from-amber-400 to-yellow-600",
-    icon: "✈",
-    logoVariant: "gold",
+    description: "Global supply chain excellence",
+    color: "from-sky-400 to-blue-600",
+    bgGradient: "from-sky-50 to-blue-50",
+    icon: "✈️",
+    logoVariant: "blue",
   },
   {
     id: 2,
     name: "NAAAS",
     subtitle: "EVENTS & MARKETING",
-    color: "from-amber-400 to-yellow-600",
+    description: "Unforgettable experiences",
+    color: "from-pink-400 to-rose-600",
+    bgGradient: "from-pink-50 to-rose-50",
     icon: "🎪",
-    logoVariant: "blue",
+    logoVariant: "pink",
   },
   {
     id: 3,
     name: "MEDICAL TECH",
     subtitle: "FOR MEDICINES",
-    color: "from-amber-400 to-yellow-600",
-    icon: "⚕",
+    description: "Healthcare innovation",
+    color: "from-teal-400 to-cyan-600",
+    bgGradient: "from-teal-50 to-cyan-50",
+    icon: "⚕️",
     logoVariant: "teal",
   },
   {
     id: 4,
     name: "NAAAS",
     subtitle: "REAL-ESTATE",
-    color: "from-amber-400 to-yellow-600",
-    icon: "🏗",
-    logoVariant: "gold",
+    description: "Building tomorrow's landmarks",
+    color: "from-purple-400 to-violet-600",
+    bgGradient: "from-purple-50 to-violet-50",
+    icon: "🏗️",
+    logoVariant: "purple",
   },
   {
     id: 5,
     name: "NAAAS",
     subtitle: "AGRICULTURE",
-    color: "from-amber-400 to-yellow-600",
+    description: "Sustainable farming solutions",
+    color: "from-green-400 to-emerald-600",
+    bgGradient: "from-green-50 to-emerald-50",
     icon: "🌱",
     logoVariant: "green",
   },
@@ -43,34 +57,39 @@ const businesses = [
     id: 6,
     name: "NAAAS",
     subtitle: "TRAVEL & HOSPITALITY",
-    color: "from-amber-400 to-yellow-600",
+    description: "Exceptional journeys",
+    color: "from-amber-400 to-orange-600",
+    bgGradient: "from-amber-50 to-orange-50",
     icon: "🏨",
-    logoVariant: "purple",
+    logoVariant: "amber",
   },
 ];
 
-// Mini logo SVG variants
+// Mini logo SVG variants with enhanced styling
 function BusinessLogo({ variant }: { variant: string }) {
   const strokeColor =
-    variant === "gold"
-      ? "#C9A84C"
-      : variant === "blue"
-      ? "#1E40AF"
+    variant === "blue"
+      ? "#2563EB"
+      : variant === "pink"
+      ? "#EC4899"
       : variant === "teal"
-      ? "#0D9488"
+      ? "#14B8A6"
       : variant === "green"
-      ? "#16A34A"
+      ? "#10B981"
       : variant === "purple"
-      ? "#7C3AED"
+      ? "#8B5CF6"
+      : variant === "amber"
+      ? "#F59E0B"
       : "#C9A84C";
 
   return (
     <svg
-      width="64"
-      height="40"
+      width="80"
+      height="50"
       viewBox="0 0 180 110"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="transition-all duration-500 group-hover:scale-110"
     >
       <path
         d="M20 80 C20 80 30 50 50 40 C55 38 58 42 55 48 C52 54 44 58 44 70 C44 82 52 88 60 85"
@@ -106,38 +125,138 @@ function BusinessLogo({ variant }: { variant: string }) {
 }
 
 export default function BusinessGrid() {
-  return (
-    <section id="businesses" className="py-10 bg-white">
-      <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-center text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-6">
-          Our Businesses
-        </h2>
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-        {/* Scrollable row on mobile, grid on desktop */}
-        <div className="flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible md:gap-6 snap-x snap-mandatory">
-          {businesses.map((biz) => (
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cards = Array.from(entry.target.querySelectorAll('.business-card'));
+            cards.forEach((card, index) => {
+              setTimeout(() => {
+                setVisibleCards((prev) => [...new Set([...prev, parseInt(card.getAttribute('data-index') || '0')])]);
+              }, index * 100);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="businesses" className="py-20 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden" ref={sectionRef}>
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, #C9A84C 1px, transparent 0)',
+          backgroundSize: '50px 50px'
+        }} />
+      </div>
+
+      <div className="max-w-screen-xl mx-auto px-4 relative z-10">
+        {/* Section header with animations */}
+        <div className="text-center mb-16">
+          <span className="inline-block text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-4 animate-fade-in">
+            Our Portfolio
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 animate-fade-in-up">
+            <span className="gradient-text">Our Businesses</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] mx-auto rounded-full mb-6" />
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            Diversified excellence across industries, united by innovation and commitment to quality
+          </p>
+        </div>
+
+        {/* Premium grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {businesses.map((biz, index) => (
             <div
               key={biz.id}
-              className="business-card flex-shrink-0 w-52 md:w-auto snap-start rounded-lg overflow-hidden shadow hover:shadow-md transition-shadow duration-300 cursor-pointer group"
+              data-index={index}
+              className={`business-card group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
+                visibleCards.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{
+                transitionDelay: `${index * 50}ms`,
+              }}
             >
-              {/* White top area with logo */}
-              <div className="bg-white flex items-center justify-center h-32 overflow-hidden">
-                <div className="card-image transition-transform duration-300 group-hover:scale-105">
-                  <BusinessLogo variant={biz.logoVariant} />
+              {/* Card background with gradient */}
+              <div className={`bg-gradient-to-br ${biz.bgGradient} h-full`}>
+                {/* Top section with logo and icon */}
+                <div className="relative bg-white p-8 flex flex-col items-center justify-center min-h-[240px] overflow-hidden">
+                  {/* Animated background circles */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${biz.color} opacity-5 rounded-full group-hover:scale-150 transition-transform duration-700`} />
+                    <div className={`absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-br ${biz.color} opacity-5 rounded-full group-hover:scale-150 transition-transform duration-700`} />
+                  </div>
+
+                  {/* Logo */}
+                  <div className="card-image mb-4 relative z-10">
+                    <BusinessLogo variant={biz.logoVariant} />
+                  </div>
+
+                  {/* Icon with animation */}
+                  <div className="text-6xl mb-4 group-hover:scale-125 transition-transform duration-500">
+                    {biz.icon}
+                  </div>
+
+                  {/* Decorative line */}
+                  <div className={`w-16 h-1 bg-gradient-to-r ${biz.color} rounded-full group-hover:w-24 transition-all duration-300`} />
+                </div>
+
+                {/* Bottom section with info */}
+                <div className={`relative p-6 bg-gradient-to-r ${biz.color} text-white`}>
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
+                  <div className="relative z-10">
+                    <p className="text-xs font-semibold tracking-widest uppercase mb-1 opacity-90">
+                      {biz.name}
+                    </p>
+                    <p className="text-base font-bold tracking-wide uppercase mb-2">
+                      {biz.subtitle}
+                    </p>
+                    <p className="text-sm opacity-90 font-light">
+                      {biz.description}
+                    </p>
+                  </div>
+
+                  {/* Arrow icon */}
+                  <div className="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
-              {/* Golden bottom label */}
-              <div className={`bg-gradient-to-r ${biz.color} px-4 py-3`}>
-                <p className="text-white text-xs font-semibold tracking-widest uppercase leading-tight">
-                  {biz.name}
-                </p>
-                <p className="text-white text-sm font-bold tracking-wide uppercase leading-tight">
-                  {biz.subtitle}
-                </p>
-              </div>
+              {/* Hover border glow effect */}
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${biz.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10 blur-xl`} />
             </div>
           ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-16">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-gold hover:scale-105 text-white text-sm font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-full shadow-lg"
+          >
+            EXPLORE OPPORTUNITIES
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>
