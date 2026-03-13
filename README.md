@@ -1,6 +1,6 @@
 # NAAAS Holding Group — Web Application Preview
 
-A Next.js + Tailwind CSS base template for the **NAAAS Holding Group** web application preview.
+A Next.js + Tailwind CSS base template for the **NAAAS Building amd venture Bd** web application preview.
 
 ## ✨ Features
 
