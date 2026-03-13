@@ -1,6 +1,61 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+type Stat = {
+  value: number;
+  label: string;
+  suffix?: string;
+};
+
+const stats: Stat[] = [
+  { value: 6, label: "Business Units", suffix: "+" },
+  { value: 15, label: "Years of Excellence", suffix: "+" },
+  { value: 500, label: "Team Members", suffix: "+" },
+  { value: 10, label: "Countries", suffix: "+" },
+];
+
 export default function AboutSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+    const targets = stats.map((stat) => stat.value);
+    const duration = 1200;
+    const start = performance.now();
+    let frame = requestAnimationFrame(step);
+
+    function step(timestamp: number) {
+      const progress = Math.min((timestamp - start) / duration, 1);
+      setCounts(targets.map((target) => Math.round(target * progress)));
+      if (progress < 1) {
+        frame = requestAnimationFrame(step);
+      }
+    }
+
+    return () => cancelAnimationFrame(frame);
+  }, [hasAnimated]);
+
   return (
-    <section id="about" className="py-16 bg-gray-50">
+    <section ref={sectionRef} id="about" className="py-16 bg-gray-50">
       <div className="max-w-screen-xl mx-auto px-4 text-center">
         <span className="text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase">
           Who We Are
@@ -22,14 +77,12 @@ export default function AboutSection() {
 
         {/* Stats row */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { value: "6+", label: "Business Units" },
-            { value: "15+", label: "Years of Excellence" },
-            { value: "500+", label: "Team Members" },
-            { value: "10+", label: "Countries" },
-          ].map((stat) => (
+          {stats.map((stat, idx) => (
             <div key={stat.label} className="flex flex-col items-center">
-              <span className="text-4xl font-extrabold text-[#C9A84C]">{stat.value}</span>
+              <span className="text-4xl font-extrabold text-[#C9A84C]">
+                {counts[idx]}
+                {stat.suffix}
+              </span>
               <span className="mt-1 text-xs font-semibold tracking-widest text-gray-500 uppercase">
                 {stat.label}
               </span>

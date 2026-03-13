@@ -35,6 +35,22 @@ const slides = [
     imagePlaceholder: "🌾",
     emoji: "🌾",
   },
+  {
+    id: 5,
+    title: "MEDICAL TECH FOR MEDICINES",
+    subtitle: "Advancing healthcare access with innovative medical solutions",
+    bg: "from-teal-900 to-cyan-800",
+    imagePlaceholder: "💊",
+    emoji: "💊",
+  },
+  {
+    id: 6,
+    title: "NAAAS TRAVEL & HOSPITALITY",
+    subtitle: "Crafting premium journeys and hospitality experiences",
+    bg: "from-orange-900 to-rose-800",
+    imagePlaceholder: "✈",
+    emoji: "🧳",
+  },
 ];
 
 export default function HeroSlider() {
