@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import MobileMenu from "./MobileMenu";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -54,7 +55,7 @@ export default function Navbar() {
         ref={headerRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#080B12]/85 backdrop-blur-2xl shadow-[0_1px_0_rgba(201,168,76,0.15)]"
+            ? "bg-surface/85 backdrop-blur-2xl shadow-[0_1px_0_rgba(201,168,76,0.15)]"
             : "bg-transparent"
         } ${hidden ? "-translate-y-full" : "translate-y-0"}`}
         style={{ height: "var(--navbar-height)" }}
@@ -86,28 +87,31 @@ export default function Navbar() {
           </div>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.slice(0, 3).map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="relative text-[13px] font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide uppercase group py-1"
+                className="relative text-[13px] font-medium text-foreground-muted hover:text-foreground transition-colors duration-300 tracking-wide uppercase group py-1"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] group-hover:w-full transition-all duration-500 ease-out" />
               </a>
             ))}
+            <ThemeToggle />
             <a
               href="#contact"
-              className="magnetic-btn px-6 py-2.5 text-[13px] font-semibold tracking-wider uppercase border border-[#C9A84C]/50 text-[#C9A84C] rounded-full hover:bg-[#C9A84C] hover:text-[#080B12] transition-all duration-[400ms] hover:shadow-[0_8px_32px_rgba(201,168,76,0.25)] overflow-hidden"
+              className="magnetic-btn px-6 py-2.5 text-[13px] font-semibold tracking-wider uppercase border border-[#C9A84C]/50 text-[#C9A84C] rounded-full hover:bg-[#C9A84C] hover:text-background transition-all duration-[400ms] hover:shadow-[0_8px_32px_rgba(201,168,76,0.25)] overflow-hidden"
             >
               <span className="btn-fill" />
               <span className="btn-text">Get In Touch</span>
             </a>
           </nav>
 
-          {/* Spacer for mobile centering */}
-          <div className="w-10 md:hidden" />
+          {/* Theme toggle for mobile */}
+          <div className="md:hidden">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Bottom line animation */}

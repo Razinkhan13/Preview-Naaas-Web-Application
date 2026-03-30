@@ -20,7 +20,7 @@ export default function Home() {
       {loading && <Preloader onComplete={() => setLoading(false)} />}
       <SmoothScroll>
         <CustomCursor />
-        <main className="min-h-screen flex flex-col bg-[#080B12]">
+        <main className="min-h-screen flex flex-col bg-background">
           <Navbar />
           <HeroSlider />
           <Marquee />

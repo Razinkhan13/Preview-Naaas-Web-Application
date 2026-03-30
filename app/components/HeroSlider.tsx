@@ -174,7 +174,7 @@ export default function HeroSlider() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#080B12]"
+      className="relative w-full overflow-hidden bg-background"
       style={{ minHeight: "100dvh" }}
     >
       {/* Background ambient glow */}
@@ -243,22 +243,22 @@ export default function HeroSlider() {
 
       {/* Slide number indicator */}
       <div className="absolute top-[calc(var(--navbar-height)+1rem)] left-8 z-20 hidden md:flex items-center gap-3">
-        <span className="text-xs font-mono text-white/30 uppercase tracking-widest">
+        <span className="text-xs font-mono text-foreground-muted/50 uppercase tracking-widest">
           {String(current + 1).padStart(2, "0")}
         </span>
-        <span className="w-10 h-px bg-white/20" />
-        <span className="text-xs font-mono text-white/20 uppercase tracking-widest">
+        <span className="w-10 h-px bg-foreground-muted/30" />
+        <span className="text-xs font-mono text-foreground-muted/30 uppercase tracking-widest">
           {String(slides.length).padStart(2, "0")}
         </span>
       </div>
 
       {/* Side vertical text */}
       <div className="absolute right-8 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center gap-4">
-        <div className="w-px h-16 bg-gradient-to-b from-transparent to-white/20" />
-        <span className="text-[10px] font-mono text-white/20 tracking-widest uppercase" style={{ writingMode: "vertical-rl" }}>
+        <div className="w-px h-16 bg-gradient-to-b from-transparent to-foreground-muted/30" />
+        <span className="text-[10px] font-mono text-foreground-muted/30 tracking-widest uppercase" style={{ writingMode: "vertical-rl" }}>
           NAAAS Holding Group
         </span>
-        <div className="w-px h-16 bg-gradient-to-t from-transparent to-white/20" />
+        <div className="w-px h-16 bg-gradient-to-t from-transparent to-foreground-muted/30" />
       </div>
 
       {/* Slide content */}
@@ -286,7 +286,7 @@ export default function HeroSlider() {
           </div>
 
           {/* Main heading */}
-          <h1 className="font-display font-bold text-white leading-none mb-2">
+          <h1 className="font-display font-bold text-foreground leading-none mb-2">
             <span data-animate className="block hero-title">
               {slide.title}
             </span>
@@ -297,7 +297,7 @@ export default function HeroSlider() {
 
           {/* Subtitle */}
           <div data-animate className="overflow-hidden mb-6">
-            <p className="hero-subtitle font-display font-bold text-white/20">
+            <p className="hero-subtitle font-display font-bold text-foreground-muted/30">
               {slide.subtitle}
             </p>
           </div>
@@ -312,7 +312,7 @@ export default function HeroSlider() {
           </div>
 
           {/* Description */}
-          <p data-animate className="text-white/50 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-12">
+          <p data-animate className="text-foreground-muted text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-12">
             {slide.description}
           </p>
 
@@ -332,7 +332,7 @@ export default function HeroSlider() {
             </a>
             <a
               href="#about"
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold tracking-[0.15em] uppercase text-white/50 border border-white/15 hover:border-white/40 hover:text-white transition-all duration-[400ms]"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold tracking-[0.15em] uppercase text-foreground-muted border border-foreground-muted/20 hover:border-foreground-muted/40 hover:text-foreground transition-all duration-[400ms]"
             >
               Learn More
             </a>
@@ -355,7 +355,7 @@ export default function HeroSlider() {
       <button
         onClick={goPrev}
         aria-label="Previous slide"
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full glass flex items-center justify-center text-white/40 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110 group"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full glass flex items-center justify-center text-foreground-muted/60 hover:text-foreground hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110 group"
       >
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="transition-transform group-hover:-translate-x-0.5">
           <polyline points="15 18 9 12 15 6" />
@@ -364,7 +364,7 @@ export default function HeroSlider() {
       <button
         onClick={goNext}
         aria-label="Next slide"
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full glass flex items-center justify-center text-white/40 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110 group"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full glass flex items-center justify-center text-foreground-muted/60 hover:text-foreground hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110 group"
       >
         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="transition-transform group-hover:translate-x-0.5">
           <polyline points="9 18 15 12 9 6" />
@@ -385,7 +385,8 @@ export default function HeroSlider() {
               style={{
                 width: i === current ? "40px" : "8px",
                 height: "8px",
-                background: i === current ? slide.accent : "rgba(255,255,255,0.2)",
+                background: i === current ? slide.accent : "var(--foreground-muted)",
+                opacity: i === current ? 1 : 0.3,
               }}
             />
             {i === current && (
@@ -400,16 +401,16 @@ export default function HeroSlider() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 opacity-40">
-        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
-          <div className="w-0.5 h-2 rounded-full bg-white/40 animate-bounce" />
+        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-foreground-muted/60">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-foreground-muted/30 flex justify-center pt-1.5">
+          <div className="w-0.5 h-2 rounded-full bg-foreground-muted/60 animate-bounce" />
         </div>
       </div>
 
       {/* Bottom gradient fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-        style={{ background: "linear-gradient(to top, #080B12, transparent)" }}
+        style={{ background: "linear-gradient(to top, var(--background), transparent)" }}
       />
     </section>
   );

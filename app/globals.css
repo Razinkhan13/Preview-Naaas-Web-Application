@@ -4,14 +4,37 @@
   --gold: #C9A84C;
   --gold-dark: #A8892A;
   --gold-light: #E8C96A;
+  --navbar-height: 80px;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Georgia", "Times New Roman", serif;
+}
+
+/* Dark theme (default) */
+[data-theme="dark"],
+:root {
   --background: #080B12;
   --surface: #0D1220;
   --surface-2: #121929;
   --foreground: #F1F5F9;
-  --muted: #94A3B8;
-  --navbar-height: 80px;
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Georgia", "Times New Roman", serif;
+  --foreground-muted: #94A3B8;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-2: #F1F5F9;
+  --foreground: #0F172A;
+  --foreground-muted: #64748B;
+  --border: rgba(15, 23, 42, 0.08);
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 /* ── Reset & Base ── */
@@ -46,6 +69,28 @@ body {
   color: var(--foreground);
   overflow-x: hidden;
   font-family: var(--font-sans);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Better text rendering */
+body, button, input, textarea, select {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Improved readability spacing */
+p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
 }
 
 /* ── Typography ── */
@@ -302,22 +347,31 @@ body {
 }
 
 /* ── Utility animation classes ── */
-.animate-fade-in-up  { animation: fadeInUp 0.8s ease-out forwards; }
-.animate-fade-in     { animation: fadeIn 0.6s ease-out forwards; }
-.animate-slide-left  { animation: slideInLeft 0.8s ease-out forwards; }
-.animate-slide-right { animation: slideInRight 0.8s ease-out forwards; }
-.animate-float       { animation: float 6s ease-in-out infinite; }
-.animate-float-slow  { animation: float-slow 9s ease-in-out infinite; }
-.animate-breathe     { animation: breathe 4s ease-in-out infinite; }
-.animate-spin-slow   { animation: spin-slow 20s linear infinite; }
-.animate-scale-in    { animation: scale-in 0.4s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+.animate-fade-in-up  { animation: fadeInUp 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+.animate-fade-in     { animation: fadeIn 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+.animate-slide-left  { animation: slideInLeft 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+.animate-slide-right { animation: slideInRight 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+.animate-float       { animation: float 7s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.animate-float-slow  { animation: float-slow 10s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.animate-breathe     { animation: breathe 5s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.animate-spin-slow   { animation: spin-slow 25s linear infinite; }
+.animate-scale-in    { animation: scale-in 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
 
 /* ── Glass morphism ── */
 .glass {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 16px var(--shadow);
 }
 
 .glass-gold {
@@ -325,6 +379,11 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(201, 168, 76, 0.2);
+}
+
+[data-theme="light"] .glass-gold {
+  background: rgba(201, 168, 76, 0.08);
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.1);
 }
 
 /* ── Shadow effects ── */
@@ -383,10 +442,17 @@ body {
 }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar       { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--background); }
-::-webkit-scrollbar-thumb { background: rgba(201, 168, 76, 0.4); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(201, 168, 76, 0.4); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201, 168, 76, 0.7); }
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.5);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.8);
+}
 
 /* CTA card pattern overlay */
 .bg-careers-pattern {
@@ -404,6 +470,14 @@ body {
   background-repeat: repeat;
   background-size: 256px 256px;
 }
+
+/* ── Theme-aware utilities ── */
+.bg-background { background: var(--background); }
+.bg-surface { background: var(--surface); }
+.bg-surface-2 { background: var(--surface-2); }
+.text-foreground { color: var(--foreground); }
+.text-foreground-muted { color: var(--foreground-muted); }
+.border-themed { border-color: var(--border); }
 
 /* ── Horizontal scroll section ── */
 .horizontal-scroll-section {

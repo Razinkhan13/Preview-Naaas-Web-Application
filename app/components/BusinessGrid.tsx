@@ -157,7 +157,7 @@ export default function BusinessGrid() {
   return (
     <section
       id="businesses"
-      className="relative py-28 md:py-36 bg-[#080B12] overflow-hidden"
+      className="relative py-28 md:py-36 bg-background overflow-hidden"
       ref={sectionRef}
     >
       {/* Background decoration */}
@@ -176,12 +176,12 @@ export default function BusinessGrid() {
             <p data-reveal className="text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-4">
               Our Portfolio
             </p>
-            <h2 data-reveal className="font-display font-bold section-title text-white leading-tight">
+            <h2 data-reveal className="font-display font-bold section-title text-foreground leading-tight">
               Our{" "}
               <span className="gradient-text">Businesses</span>
             </h2>
           </div>
-          <p data-reveal className="text-white/40 text-sm max-w-sm leading-relaxed md:text-right">
+          <p data-reveal className="text-foreground-muted text-sm max-w-sm leading-relaxed md:text-right">
             Diversified excellence across six high-growth industries, united by innovation and a commitment to quality.
           </p>
         </div>
@@ -191,10 +191,10 @@ export default function BusinessGrid() {
           {businesses.map((biz) => (
             <div
               key={biz.id}
-              className="biz-card group relative rounded-2xl p-8 md:p-10 cursor-pointer hover-gold-border bg-[#0D1220]"
+              className="biz-card group relative rounded-2xl p-8 md:p-10 cursor-pointer hover-gold-border bg-surface"
             >
               {/* Corner tag */}
-              <span className="absolute top-6 right-6 text-xs font-mono text-white/15 group-hover:text-white/30 transition-colors duration-500">
+              <span className="absolute top-6 right-6 text-xs font-mono text-foreground-muted/20 group-hover:text-foreground-muted/40 transition-colors duration-500">
                 {biz.tag}
               </span>
 
@@ -213,10 +213,10 @@ export default function BusinessGrid() {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-bold text-white mb-3 group-hover:text-white transition-colors">
+              <h3 className="text-lg font-bold text-foreground mb-3 group-hover:text-foreground transition-colors">
                 {biz.name}
               </h3>
-              <p className="text-white/40 text-sm leading-relaxed mb-8">
+              <p className="text-foreground-muted text-sm leading-relaxed mb-8">
                 {biz.description}
               </p>
 
@@ -224,7 +224,7 @@ export default function BusinessGrid() {
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] transition-all duration-300"
                 style={{ color: `${biz.accent}60` }}
               >
-                <span className="group-hover:text-white/80 transition-colors duration-300">
+                <span className="group-hover:text-foreground-muted transition-colors duration-300">
                   Learn More
                 </span>
                 <svg
@@ -252,7 +252,7 @@ export default function BusinessGrid() {
         <div ref={ctaRef} className="text-center mt-16">
           <a
             href="#contact"
-            className="magnetic-btn inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] text-[#080B12] bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-[0_16px_48px_rgba(201,168,76,0.35)] hover:scale-105 transition-all duration-300 overflow-hidden"
+            className="magnetic-btn inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] text-background bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-[0_16px_48px_rgba(201,168,76,0.35)] hover:scale-105 transition-all duration-300 overflow-hidden"
           >
             Explore Opportunities
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
