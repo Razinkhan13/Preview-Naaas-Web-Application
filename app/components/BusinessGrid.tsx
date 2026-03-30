@@ -5,127 +5,94 @@ import { useEffect, useRef, useState } from "react";
 const businesses = [
   {
     id: 1,
-    name: "NAAAS",
-    subtitle: "LOGISTICS",
-    description: "Global supply chain excellence",
-    color: "from-sky-400 to-blue-600",
-    bgGradient: "from-sky-50 to-blue-50",
-    icon: "✈️",
-    logoVariant: "blue",
+    tag: "01",
+    name: "NAAAS Logistics",
+    description:
+      "Global supply chain solutions with cutting-edge technology, delivering reliability across continents.",
+    accent: "#38BDF8",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <path d="M6 32h36M6 32l4-16h28l4 16M14 32v6M34 32v6M10 22h28" />
+        <circle cx="14" cy="40" r="2" fill="currentColor" stroke="none" />
+        <circle cx="34" cy="40" r="2" fill="currentColor" stroke="none" />
+      </svg>
+    ),
   },
   {
     id: 2,
-    name: "NAAAS",
-    subtitle: "EVENTS & MARKETING",
-    description: "Unforgettable experiences",
-    color: "from-pink-400 to-rose-600",
-    bgGradient: "from-pink-50 to-rose-50",
-    icon: "🎪",
-    logoVariant: "pink",
+    tag: "02",
+    name: "Events & Marketing",
+    description:
+      "Transforming visions into extraordinary experiences that resonate and create lasting impressions.",
+    accent: "#E879F9",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <path d="M24 6l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z" />
+        <path d="M8 36c4-4 8-6 16-6s12 2 16 6" />
+      </svg>
+    ),
   },
   {
     id: 3,
-    name: "MEDICAL TECH",
-    subtitle: "FOR MEDICINES",
-    description: "Healthcare innovation",
-    color: "from-teal-400 to-cyan-600",
-    bgGradient: "from-teal-50 to-cyan-50",
-    icon: "⚕️",
-    logoVariant: "teal",
+    tag: "03",
+    name: "Medical Technology",
+    description:
+      "Advanced medical tech solutions improving lives through innovation in diagnostics and healthcare.",
+    accent: "#22D3EE",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <rect x="14" y="8" width="20" height="32" rx="3" />
+        <path d="M24 16v8M20 20h8M18 30h12" />
+        <circle cx="24" cy="36" r="1.5" fill="currentColor" stroke="none" />
+      </svg>
+    ),
   },
   {
     id: 4,
-    name: "NAAAS",
-    subtitle: "REAL-ESTATE",
-    description: "Building tomorrow's landmarks",
-    color: "from-purple-400 to-violet-600",
-    bgGradient: "from-purple-50 to-violet-50",
-    icon: "🏗️",
-    logoVariant: "purple",
+    tag: "04",
+    name: "Real Estate",
+    description:
+      "Developing premium properties that redefine urban living and set new commercial benchmarks.",
+    accent: "#818CF8",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <path d="M6 42h36M10 42V22l14-14 14 14v20M18 42V30h12v12" />
+        <path d="M24 8v4" />
+      </svg>
+    ),
   },
   {
     id: 5,
-    name: "NAAAS",
-    subtitle: "AGRICULTURE",
-    description: "Sustainable farming solutions",
-    color: "from-green-400 to-emerald-600",
-    bgGradient: "from-green-50 to-emerald-50",
-    icon: "🌱",
-    logoVariant: "green",
+    tag: "05",
+    name: "Agriculture",
+    description:
+      "Pioneering sustainable farming for environmental resilience and long-term food security.",
+    accent: "#34D399",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <path d="M24 42V20M24 20c0-8 8-12 14-10-2 8-8 12-14 10zM24 20c0-8-8-12-14-10 2 8 8 12 14 10z" />
+        <path d="M10 42h28" />
+      </svg>
+    ),
   },
   {
     id: 6,
-    name: "NAAAS",
-    subtitle: "TRAVEL & HOSPITALITY",
-    description: "Exceptional journeys",
-    color: "from-amber-400 to-orange-600",
-    bgGradient: "from-amber-50 to-orange-50",
-    icon: "🏨",
-    logoVariant: "amber",
+    tag: "06",
+    name: "Travel & Hospitality",
+    description:
+      "Crafting unforgettable journeys and world-class hospitality that redefines service excellence.",
+    accent: "#FBBF24",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10">
+        <path d="M6 38h36M10 38V20l14-10 14 10v18M18 38V28h12v10" />
+        <path d="M20 22h8M20 26h8" />
+      </svg>
+    ),
   },
 ];
 
-// Mini logo SVG variants with enhanced styling
-function BusinessLogo({ variant }: { variant: string }) {
-  const strokeColor =
-    variant === "blue"
-      ? "#2563EB"
-      : variant === "pink"
-      ? "#EC4899"
-      : variant === "teal"
-      ? "#14B8A6"
-      : variant === "green"
-      ? "#10B981"
-      : variant === "purple"
-      ? "#8B5CF6"
-      : variant === "amber"
-      ? "#F59E0B"
-      : "#C9A84C";
-
-  return (
-    <svg
-      width="80"
-      height="50"
-      viewBox="0 0 180 110"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="transition-all duration-500 group-hover:scale-110"
-    >
-      <path
-        d="M20 80 C20 80 30 50 50 40 C55 38 58 42 55 48 C52 54 44 58 44 70 C44 82 52 88 60 85"
-        stroke={strokeColor}
-        strokeWidth="7"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M60 85 C68 82 78 72 80 60 C82 50 78 44 84 40 C90 36 96 42 94 52 C92 62 84 68 84 80"
-        stroke={strokeColor}
-        strokeWidth="7"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M110 20 C110 20 106 50 108 70 C110 86 120 90 128 86 C136 82 138 70 136 58"
-        stroke={strokeColor}
-        strokeWidth="7"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <circle cx="138" cy="22" r="8" fill="#CC2229" />
-      <path
-        d="M15 88 Q50 96 90 90 Q120 84 145 88"
-        stroke={strokeColor}
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        fill="none"
-      />
-    </svg>
-  );
-}
-
 export default function BusinessGrid() {
-  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [visible, setVisible] = useState<Set<number>>(new Set());
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -133,127 +100,118 @@ export default function BusinessGrid() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const cards = Array.from(entry.target.querySelectorAll('.business-card'));
-            cards.forEach((card, index) => {
+            businesses.forEach((_, i) => {
               setTimeout(() => {
-                setVisibleCards((prev) => [...new Set([...prev, parseInt(card.getAttribute('data-index') || '0')])]);
-              }, index * 100);
+                setVisible((prev) => new Set([...prev, i]));
+              }, i * 100);
             });
+            observer.disconnect();
           }
         });
       },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="businesses" className="py-20 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden" ref={sectionRef}>
+    <section
+      id="businesses"
+      className="relative py-28 bg-[#080B12] overflow-hidden"
+      ref={sectionRef}
+    >
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, #C9A84C 1px, transparent 0)',
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
+      <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px divider-gold" />
+      <div className="absolute bottom-0 left-0 right-0 h-px divider-gold" />
 
-      <div className="max-w-screen-xl mx-auto px-4 relative z-10">
-        {/* Section header with animations */}
-        <div className="text-center mb-16">
-          <span className="inline-block text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-4 animate-fade-in">
-            Our Portfolio
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 animate-fade-in-up">
-            <span className="gradient-text">Our Businesses</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] mx-auto rounded-full mb-6" />
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Diversified excellence across industries, united by innovation and commitment to quality
+      <div className="max-w-screen-xl mx-auto px-6 relative z-10">
+        {/* Section header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-3">
+              Our Portfolio
+            </p>
+            <h2 className="font-display font-bold text-4xl sm:text-5xl text-white leading-tight">
+              Our{" "}
+              <span className="gradient-text">Businesses</span>
+            </h2>
+          </div>
+          <p className="text-white/50 text-sm max-w-xs leading-relaxed md:text-right">
+            Diversified excellence across six high-growth industries, united by innovation and a commitment to quality.
           </p>
         </div>
 
-        {/* Premium grid layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {businesses.map((biz, index) => (
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {businesses.map((biz, idx) => (
             <div
               key={biz.id}
-              data-index={index}
-              className={`business-card group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
-                visibleCards.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+              className="group relative rounded-2xl p-8 cursor-pointer hover-gold-border transition-all duration-500 bg-[#0D1220]"
               style={{
-                transitionDelay: `${index * 50}ms`,
+                opacity: visible.has(idx) ? 1 : 0,
+                transform: visible.has(idx) ? "translateY(0)" : "translateY(32px)",
+                transition: `opacity 0.6s ease ${idx * 80}ms, transform 0.6s ease ${idx * 80}ms, border-color 0.3s ease, box-shadow 0.3s ease`,
               }}
             >
-              {/* Card background with gradient */}
-              <div className={`bg-gradient-to-br ${biz.bgGradient} h-full`}>
-                {/* Top section with logo and icon */}
-                <div className="relative bg-white p-8 flex flex-col items-center justify-center min-h-[240px] overflow-hidden">
-                  {/* Animated background circles */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${biz.color} opacity-5 rounded-full group-hover:scale-150 transition-transform duration-700`} />
-                    <div className={`absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-br ${biz.color} opacity-5 rounded-full group-hover:scale-150 transition-transform duration-700`} />
-                  </div>
+              {/* Corner tag */}
+              <span className="absolute top-6 right-6 text-xs font-mono text-white/20 group-hover:text-white/40 transition-colors duration-300">
+                {biz.tag}
+              </span>
 
-                  {/* Logo */}
-                  <div className="card-image mb-4 relative z-10">
-                    <BusinessLogo variant={biz.logoVariant} />
-                  </div>
-
-                  {/* Icon with animation */}
-                  <div className="text-6xl mb-4 group-hover:scale-125 transition-transform duration-500">
-                    {biz.icon}
-                  </div>
-
-                  {/* Decorative line */}
-                  <div className={`w-16 h-1 bg-gradient-to-r ${biz.color} rounded-full group-hover:w-24 transition-all duration-300`} />
-                </div>
-
-                {/* Bottom section with info */}
-                <div className={`relative p-6 bg-gradient-to-r ${biz.color} text-white`}>
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-
-                  <div className="relative z-10">
-                    <p className="text-xs font-semibold tracking-widest uppercase mb-1 opacity-90">
-                      {biz.name}
-                    </p>
-                    <p className="text-base font-bold tracking-wide uppercase mb-2">
-                      {biz.subtitle}
-                    </p>
-                    <p className="text-sm opacity-90 font-light">
-                      {biz.description}
-                    </p>
-                  </div>
-
-                  {/* Arrow icon */}
-                  <div className="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
+              {/* Icon */}
+              <div
+                className="mb-6 transition-all duration-300"
+                style={{ color: biz.accent }}
+              >
+                {biz.icon}
               </div>
 
-              {/* Hover border glow effect */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${biz.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10 blur-xl`} />
+              {/* Content */}
+              <h3 className="text-lg font-bold text-white mb-3 group-hover:text-white transition-colors">
+                {biz.name}
+              </h3>
+              <p className="text-white/50 text-sm leading-relaxed mb-6">
+                {biz.description}
+              </p>
+
+              {/* Arrow link */}
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300"
+                style={{ color: `${biz.accent}80` }}
+              >
+                <span className="group-hover:text-white transition-colors duration-300" style={{ color: "inherit" }}>
+                  Learn More
+                </span>
+                <svg
+                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  viewBox="0 0 24 24"
+                  style={{ color: biz.accent }}
+                >
+                  <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+
+              {/* Bottom accent line */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-0.5 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `linear-gradient(90deg, transparent, ${biz.accent}, transparent)` }}
+              />
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
+        {/* CTA */}
+        <div className="text-center mt-14">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-gold hover:scale-105 text-white text-sm font-bold tracking-[0.15em] uppercase transition-all duration-300 rounded-full shadow-lg"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm font-semibold uppercase tracking-widest text-[#080B12] bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-gold-lg hover:scale-105 transition-all duration-300"
           >
-            EXPLORE OPPORTUNITIES
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            Explore Opportunities
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </a>
