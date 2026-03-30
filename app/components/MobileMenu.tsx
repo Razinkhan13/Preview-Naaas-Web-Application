@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -57,6 +58,10 @@ const socialLinks = [
 ];
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<HTMLElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -70,22 +75,61 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
+  // GSAP animations
+  useEffect(() => {
+    if (!isOpen || !containerRef.current) return;
+
+    const tl = gsap.timeline();
+
+    // Background reveal
+    tl.fromTo(containerRef.current, {
+      clipPath: "circle(0% at 0% 0%)",
+    }, {
+      clipPath: "circle(150% at 0% 0%)",
+      duration: 0.6,
+      ease: "power3.inOut",
+    });
+
+    // Stagger nav links
+    if (linksRef.current) {
+      tl.from(linksRef.current.querySelectorAll(".nav-link"), {
+        x: -80,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power3.out",
+      }, "-=0.2");
+    }
+
+    // Social links
+    if (socialRef.current) {
+      tl.from(socialRef.current.children, {
+        y: 20,
+        opacity: 0,
+        duration: 0.4,
+        stagger: 0.05,
+        ease: "power3.out",
+      }, "-=0.2");
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div
+      ref={containerRef}
       className="fixed inset-0 z-50 bg-[#080B12] flex flex-col"
       role="dialog"
       aria-modal="true"
       aria-label="Navigation menu"
     >
       {/* Top bar */}
-      <div className="flex items-center justify-between px-6 h-[var(--navbar-height)] border-b border-white/10">
-        <span className="text-lg font-bold gradient-text tracking-wider">NAAAS</span>
+      <div className="flex items-center justify-between px-6 h-[var(--navbar-height)] border-b border-white/8">
+        <span className="text-xl font-bold gradient-text tracking-wider font-display">NAAAS</span>
         <button
           onClick={onClose}
           aria-label="Close menu"
-          className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/70 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300"
+          className="w-11 h-11 rounded-full border border-white/12 flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300"
         >
           <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -95,17 +139,19 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       </div>
 
       {/* Nav links */}
-      <nav className="flex-1 flex flex-col justify-center px-8 gap-2">
+      <nav ref={linksRef} className="flex-1 flex flex-col justify-center px-8 gap-1">
         {navLinks.map((link, i) => (
           <a
             key={link.label}
             href={link.href}
             onClick={onClose}
-            className="group flex items-center gap-4 py-4 border-b border-white/5 hover:border-[#C9A84C]/30 transition-all duration-300"
-            style={{ animationDelay: `${i * 80}ms` }}
+            className="nav-link group flex items-center gap-5 py-5 border-b border-white/5 hover:border-[#C9A84C]/25 transition-all duration-400"
           >
-            <span className="w-6 h-px bg-[#C9A84C]/0 group-hover:bg-[#C9A84C]/80 transition-all duration-300" />
-            <span className="text-2xl font-light text-white/70 group-hover:text-white tracking-wide transition-colors duration-300">
+            <span className="text-xs font-mono text-[#C9A84C]/30 group-hover:text-[#C9A84C]/60 transition-colors">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="w-0 h-px bg-[#C9A84C]/60 group-hover:w-8 transition-all duration-500" />
+            <span className="text-3xl font-light text-white/60 group-hover:text-white tracking-wide transition-all duration-400 font-display">
               {link.label}
             </span>
           </a>
@@ -113,15 +159,15 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       </nav>
 
       {/* Social + footer */}
-      <div className="px-8 py-8 border-t border-white/10">
-        <p className="text-xs text-white/30 uppercase tracking-widest mb-4">Follow Us</p>
+      <div ref={socialRef} className="px-8 py-8 border-t border-white/8">
+        <p className="text-[10px] text-white/25 uppercase tracking-[0.3em] mb-4">Follow Us</p>
         <div className="flex items-center gap-4">
           {socialLinks.map((s) => (
             <a
               key={s.label}
               href={s.href}
               aria-label={s.label}
-              className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/50 hover:text-[#C9A84C] hover:border-[#C9A84C]/50 transition-all duration-300"
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-[#C9A84C] hover:border-[#C9A84C]/50 transition-all duration-300"
             >
               {s.icon}
             </a>

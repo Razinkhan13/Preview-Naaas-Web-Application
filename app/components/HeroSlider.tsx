@@ -1,297 +1,414 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
 
 const slides = [
   {
     id: 1,
     tag: "Global Logistics",
-    title: "Connecting the World",
+    title: "Connecting",
+    titleLine2: "the World",
     subtitle: "Through Excellence",
     description:
       "Global supply chain solutions powered by cutting-edge technology and unmatched reliability across continents.",
     accent: "#38BDF8",
-    glow: "rgba(56, 189, 248, 0.15)",
-    shape: "M0,0 L100,0 L80,100 L0,100Z",
+    glow: "rgba(56, 189, 248, 0.12)",
   },
   {
     id: 2,
     tag: "Events & Marketing",
-    title: "Crafting Experiences",
+    title: "Crafting",
+    titleLine2: "Experiences",
     subtitle: "That Last Forever",
     description:
       "Transforming visionary concepts into extraordinary events that leave lasting impressions across the region.",
     accent: "#E879F9",
-    glow: "rgba(232, 121, 249, 0.15)",
-    shape: "M20,0 L100,0 L100,100 L0,80Z",
+    glow: "rgba(232, 121, 249, 0.12)",
   },
   {
     id: 3,
     tag: "Real Estate",
-    title: "Building Tomorrow's",
+    title: "Building",
+    titleLine2: "Tomorrow's",
     subtitle: "Landmarks Today",
     description:
       "Developing premium properties that redefine urban living and set new benchmarks for commercial spaces.",
     accent: "#818CF8",
-    glow: "rgba(129, 140, 248, 0.15)",
-    shape: "M0,0 L100,20 L100,100 L0,100Z",
+    glow: "rgba(129, 140, 248, 0.12)",
   },
   {
     id: 4,
     tag: "Agriculture",
-    title: "Sustainable Farming",
+    title: "Sustainable",
+    titleLine2: "Farming",
     subtitle: "For a Greener Future",
     description:
       "Pioneering innovation in agriculture for environmental sustainability and long-term food security.",
     accent: "#34D399",
-    glow: "rgba(52, 211, 153, 0.15)",
-    shape: "M0,20 L100,0 L100,80 L0,100Z",
+    glow: "rgba(52, 211, 153, 0.12)",
   },
   {
     id: 5,
     tag: "Medical Technology",
-    title: "Healthcare Innovation",
+    title: "Healthcare",
+    titleLine2: "Innovation",
     subtitle: "For a Healthier World",
     description:
       "Advanced medical technology solutions that improve and transform lives across the globe.",
     accent: "#22D3EE",
-    glow: "rgba(34, 211, 238, 0.15)",
-    shape: "M10,0 L100,0 L90,100 L0,100Z",
+    glow: "rgba(34, 211, 238, 0.12)",
   },
   {
     id: 6,
     tag: "Travel & Hospitality",
-    title: "Exceptional Journeys",
+    title: "Exceptional",
+    titleLine2: "Journeys",
     subtitle: "World-Class Hospitality",
     description:
       "Crafting unforgettable travel experiences with service that exceeds every expectation.",
     accent: "#FBBF24",
-    glow: "rgba(251, 191, 36, 0.15)",
-    shape: "M0,0 L100,0 L100,100 L20,80Z",
+    glow: "rgba(251, 191, 36, 0.12)",
   },
 ];
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const animateIn = useCallback(() => {
+    if (!contentRef.current) return;
+    const tl = gsap.timeline();
+    const elements = contentRef.current.querySelectorAll("[data-animate]");
+
+    gsap.set(elements, { y: 60, opacity: 0 });
+
+    tl.to(elements, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out",
+    });
+
+    return tl;
+  }, []);
+
+  const animateOut = useCallback(() => {
+    if (!contentRef.current) return;
+    const elements = contentRef.current.querySelectorAll("[data-animate]");
+    return gsap.to(elements, {
+      y: -40,
+      opacity: 0,
+      duration: 0.4,
+      stagger: 0.03,
+      ease: "power3.in",
+    });
+  }, []);
 
   const goTo = useCallback(
     (idx: number) => {
-      if (transitioning || idx === current) return;
-      setTransitioning(true);
-      setTimeout(() => {
-        setCurrent(idx);
-        setTimeout(() => {
-          setTransitioning(false);
-        }, 800);
-      }, 50);
+      if (isAnimating || idx === current) return;
+      setIsAnimating(true);
+
+      const outAnim = animateOut();
+      if (outAnim) {
+        outAnim.then(() => {
+          setCurrent(idx);
+          setTimeout(() => {
+            animateIn();
+            setIsAnimating(false);
+          }, 50);
+        });
+      }
     },
-    [transitioning, current]
+    [isAnimating, current, animateIn, animateOut]
   );
 
-  const goPrev = () => goTo((current - 1 + slides.length) % slides.length);
   const goNext = useCallback(
     () => goTo((current + 1) % slides.length),
     [current, goTo]
   );
+
+  const goPrev = useCallback(
+    () => goTo((current - 1 + slides.length) % slides.length),
+    [current, goTo]
+  );
+
+  useEffect(() => {
+    animateIn();
+  }, [animateIn]);
 
   useEffect(() => {
     const timer = setInterval(goNext, 7000);
     return () => clearInterval(timer);
   }, [goNext]);
 
+  // Parallax on mouse move (desktop)
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const handleMouse = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      gsap.to(".hero-parallax-layer", {
+        x: x * 30,
+        y: y * 30,
+        duration: 1,
+        ease: "power2.out",
+      });
+    };
+
+    section.addEventListener("mousemove", handleMouse);
+    return () => section.removeEventListener("mousemove", handleMouse);
+  }, []);
+
   const slide = slides[current];
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#080B12]"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100dvh" }}
     >
-      {/* ── Background ambient glow ── */}
+      {/* Background ambient glow */}
       <div
-        className="absolute inset-0 transition-all duration-1000 pointer-events-none"
+        className="absolute inset-0 transition-all duration-[1500ms] pointer-events-none"
         style={{
           background: `radial-gradient(ellipse 70% 60% at 60% 40%, ${slide.glow}, transparent 70%)`,
         }}
       />
 
-      {/* ── Grid pattern overlay ── */}
+      {/* Grid pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-100 pointer-events-none" />
 
-      {/* ── Animated geometric accent shapes ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large orb top-right */}
+      {/* Animated geometric elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hero-parallax-layer">
+        {/* Large orb */}
         <div
-          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-3xl transition-all duration-1000"
+          className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full opacity-[0.06] blur-[100px] transition-all duration-[1500ms]"
           style={{ background: `radial-gradient(circle, ${slide.accent}, transparent 70%)` }}
         />
-        {/* Small orb bottom-left */}
+        {/* Small orb */}
         <div
-          className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full opacity-[0.05] blur-3xl transition-all duration-1000"
+          className="absolute -bottom-24 -left-24 w-[500px] h-[500px] rounded-full opacity-[0.04] blur-[80px] transition-all duration-[1500ms]"
           style={{ background: `radial-gradient(circle, ${slide.accent}, transparent 70%)` }}
         />
 
         {/* Floating particles */}
-        {[...Array(6)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full animate-breathe"
+            className="absolute rounded-full"
             style={{
-              width: `${4 + i * 3}px`,
-              height: `${4 + i * 3}px`,
+              width: `${3 + i * 2}px`,
+              height: `${3 + i * 2}px`,
               background: slide.accent,
-              left: `${15 + i * 14}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              animationDelay: `${i * 0.8}s`,
-              animationDuration: `${4 + i}s`,
-              opacity: 0.4,
+              left: `${10 + i * 11}%`,
+              top: `${15 + (i % 4) * 20}%`,
+              animation: `breathe ${3 + i * 0.8}s ease-in-out ${i * 0.5}s infinite`,
+              opacity: 0.3,
             }}
           />
         ))}
 
-        {/* Diagonal accent line */}
+        {/* Vertical accent lines */}
         <div
-          className="absolute top-0 right-[20%] w-px h-full opacity-10 transition-all duration-1000"
+          className="absolute top-0 right-[18%] w-px h-full opacity-[0.06] transition-all duration-[1500ms]"
           style={{ background: `linear-gradient(to bottom, transparent, ${slide.accent}, transparent)` }}
         />
         <div
-          className="absolute top-0 right-[40%] w-px h-full opacity-5 transition-all duration-1000"
+          className="absolute top-0 right-[38%] w-px h-full opacity-[0.03] transition-all duration-[1500ms]"
           style={{ background: `linear-gradient(to bottom, transparent, ${slide.accent}, transparent)` }}
         />
+        <div
+          className="absolute top-0 left-[12%] w-px h-full opacity-[0.04] transition-all duration-[1500ms]"
+          style={{ background: `linear-gradient(to bottom, transparent, ${slide.accent}, transparent)` }}
+        />
+
+        {/* Rotating ring */}
+        <div className="absolute top-1/2 right-[10%] -translate-y-1/2 hidden lg:block">
+          <svg width="300" height="300" viewBox="0 0 300 300" className="animate-spin-slow opacity-[0.04]">
+            <circle cx="150" cy="150" r="140" fill="none" stroke={slide.accent} strokeWidth="0.5" strokeDasharray="8 12" />
+            <circle cx="150" cy="150" r="100" fill="none" stroke={slide.accent} strokeWidth="0.3" strokeDasharray="4 8" />
+          </svg>
+        </div>
       </div>
 
-      {/* ── Slide number indicator top-left ── */}
-      <div className="absolute top-8 left-8 z-20 hidden md:flex items-center gap-3">
+      {/* Slide number indicator */}
+      <div className="absolute top-[calc(var(--navbar-height)+1rem)] left-8 z-20 hidden md:flex items-center gap-3">
         <span className="text-xs font-mono text-white/30 uppercase tracking-widest">
           {String(current + 1).padStart(2, "0")}
         </span>
-        <span className="w-8 h-px bg-white/20" />
+        <span className="w-10 h-px bg-white/20" />
         <span className="text-xs font-mono text-white/20 uppercase tracking-widest">
           {String(slides.length).padStart(2, "0")}
         </span>
       </div>
 
-      {/* ── Slide content ── */}
+      {/* Side vertical text */}
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center gap-4">
+        <div className="w-px h-16 bg-gradient-to-b from-transparent to-white/20" />
+        <span className="text-[10px] font-mono text-white/20 tracking-widest uppercase" style={{ writingMode: "vertical-rl" }}>
+          NAAAS Holding Group
+        </span>
+        <div className="w-px h-16 bg-gradient-to-t from-transparent to-white/20" />
+      </div>
+
+      {/* Slide content */}
       <div
         className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-[var(--navbar-height)]"
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: "100dvh" }}
       >
-        <div
-          className="max-w-4xl mx-auto transition-all duration-700"
-          style={{ opacity: transitioning ? 0 : 1, transform: transitioning ? "translateY(30px)" : "translateY(0)" }}
-        >
+        <div ref={contentRef} className="max-w-5xl mx-auto">
           {/* Tag */}
-          <div className="inline-flex items-center gap-2 mb-6">
+          <div data-animate>
             <span
-              className="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest border"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.2em] border mb-8"
               style={{
                 color: slide.accent,
-                borderColor: `${slide.accent}40`,
-                background: `${slide.accent}12`,
+                borderColor: `${slide.accent}30`,
+                background: `${slide.accent}0A`,
               }}
             >
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ background: slide.accent }}
+              />
               {slide.tag}
             </span>
           </div>
 
           {/* Main heading */}
-          <h1 className="font-display font-bold text-white leading-tight mb-2">
-            <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="font-display font-bold text-white leading-none mb-2">
+            <span data-animate className="block hero-title">
               {slide.title}
             </span>
-            <span
-              className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl"
-              style={{ color: slide.accent }}
-            >
-              {slide.subtitle}
+            <span data-animate className="block hero-title" style={{ color: slide.accent }}>
+              {slide.titleLine2}
             </span>
           </h1>
 
+          {/* Subtitle */}
+          <div data-animate className="overflow-hidden mb-6">
+            <p className="hero-subtitle font-display font-bold text-white/20">
+              {slide.subtitle}
+            </p>
+          </div>
+
           {/* Gold rule */}
-          <div className="flex items-center justify-center gap-3 my-6">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#C9A84C]" />
-            <div className="w-2 h-2 rounded-full bg-[#C9A84C]" />
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#C9A84C]" />
+          <div data-animate className="flex items-center justify-center gap-4 my-8">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-[#C9A84C]" />
+            <div className="w-2.5 h-2.5 rounded-full border border-[#C9A84C] flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-[#C9A84C]" />
+            </div>
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-[#C9A84C]" />
           </div>
 
           {/* Description */}
-          <p className="text-white/60 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-10">
+          <p data-animate className="text-white/50 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-12">
             {slide.description}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div data-animate className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="#businesses"
-              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm font-semibold tracking-widest uppercase text-[#080B12] transition-all duration-300 hover:shadow-gold-lg hover:scale-105"
-              style={{ background: `linear-gradient(135deg, #C9A84C, #E8C96A)` }}
+              className="magnetic-btn group px-10 py-4 rounded-full text-sm font-semibold tracking-[0.15em] uppercase overflow-hidden border-2 border-[#C9A84C] text-[#C9A84C] hover:text-[#080B12] transition-colors duration-500"
             >
-              Explore Our Businesses
-              <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <span className="btn-fill" />
+              <span className="btn-text inline-flex items-center gap-3">
+                Explore Our Businesses
+                <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
             </a>
             <a
               href="#about"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm font-semibold tracking-widest uppercase text-white/70 border border-white/20 hover:border-white/40 hover:text-white transition-all duration-300"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold tracking-[0.15em] uppercase text-white/50 border border-white/15 hover:border-white/40 hover:text-white transition-all duration-400"
             >
               Learn More
             </a>
           </div>
         </div>
 
-        {/* ── NAAAS logo watermark ── */}
-        <div className="absolute bottom-28 right-8 md:right-16 opacity-[0.04] pointer-events-none hidden md:block">
+        {/* Logo watermark */}
+        <div className="absolute bottom-28 right-8 md:right-16 opacity-[0.03] pointer-events-none hidden md:block">
           <Image
             src="/naaas-logo.svg"
             alt=""
-            width={300}
-            height={120}
+            width={350}
+            height={140}
             aria-hidden="true"
           />
         </div>
       </div>
 
-      {/* ── Left / Right arrows ── */}
+      {/* Navigation arrows */}
       <button
         onClick={goPrev}
         aria-label="Previous slide"
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full glass flex items-center justify-center text-white/40 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110 group"
       >
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="transition-transform group-hover:-translate-x-0.5">
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </button>
       <button
         onClick={goNext}
         aria-label="Next slide"
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 rounded-full glass flex items-center justify-center text-white/40 hover:text-white hover:border-[#C9A84C]/50 transition-all duration-300 hover:scale-110 group"
       >
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="transition-transform group-hover:translate-x-0.5">
           <polyline points="9 18 15 12 9 6" />
         </svg>
       </button>
 
-      {/* ── Dot navigation ── */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-        {slides.map((s, i) => (
+      {/* Progress dots */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+        {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Slide ${i + 1}`}
-            className="transition-all duration-400 rounded-full"
-            style={{
-              width: i === current ? "32px" : "8px",
-              height: "8px",
-              background: i === current ? slide.accent : "rgba(255,255,255,0.25)",
-            }}
-          />
+            className="relative group"
+          >
+            <span
+              className="block rounded-full transition-all duration-500"
+              style={{
+                width: i === current ? "40px" : "8px",
+                height: "8px",
+                background: i === current ? slide.accent : "rgba(255,255,255,0.2)",
+              }}
+            />
+            {i === current && (
+              <span
+                className="absolute inset-0 rounded-full animate-pulse"
+                style={{ background: `${slide.accent}30` }}
+              />
+            )}
+          </button>
         ))}
       </div>
 
-      {/* ── Bottom gradient fade ── */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+      {/* Scroll indicator */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 opacity-40">
+        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
+          <div className="w-0.5 h-2 rounded-full bg-white/40 animate-bounce" />
+        </div>
+      </div>
+
+      {/* Bottom gradient fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
         style={{ background: "linear-gradient(to top, #080B12, transparent)" }}
       />
     </section>

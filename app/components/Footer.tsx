@@ -1,4 +1,11 @@
+"use client";
+
+import { useRef, useEffect } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const footerLinks = {
   Company: [
@@ -77,24 +84,51 @@ const socialLinks = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const footerRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (contentRef.current) {
+        gsap.from(contentRef.current.querySelectorAll("[data-reveal]"), {
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer className="relative bg-[#060810] overflow-hidden">
+    <footer ref={footerRef} className="relative bg-[#060810] overflow-hidden">
       {/* Top divider */}
       <div className="divider-gold" />
 
+      {/* Background accent */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full blur-[200px] opacity-[0.02] pointer-events-none bg-[#C9A84C]" />
+
       {/* Main content */}
-      <div className="max-w-screen-xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+      <div ref={contentRef} className="max-w-screen-xl mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div data-reveal className="lg:col-span-2">
             <Image
               src="/naaas-logo.svg"
               alt="NAAAS Holding Group"
               width={140}
               height={45}
-              className="h-10 w-auto mb-4"
+              className="h-10 w-auto mb-5"
             />
-            <p className="text-white/40 text-sm leading-relaxed mb-6 max-w-xs">
+            <p className="text-white/35 text-sm leading-relaxed mb-8 max-w-xs">
               Building the future through diversified excellence across logistics,
               real estate, agriculture, and more.
             </p>
@@ -104,7 +138,7 @@ export default function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-[#C9A84C] hover:border-[#C9A84C]/40 transition-all duration-300"
+                  className="w-10 h-10 rounded-full border border-white/8 flex items-center justify-center text-white/30 hover:text-[#C9A84C] hover:border-[#C9A84C]/40 hover:bg-[#C9A84C]/5 transition-all duration-400"
                 >
                   {s.icon}
                 </a>
@@ -114,16 +148,16 @@ export default function Footer() {
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h4 className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-5">
+            <div key={title} data-reveal>
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/50 mb-6">
                 {title}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-3.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-white/35 hover:text-[#C9A84C] text-sm transition-colors duration-300"
+                      className="text-white/30 hover:text-[#C9A84C] text-sm transition-colors duration-300 inline-block hover:translate-x-1 transform"
                     >
                       {link.label}
                     </a>
@@ -135,19 +169,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="divider-gold mb-6" />
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/25">
+        <div className="divider-gold mb-8" />
+        <div data-reveal className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/20">
           <p>
-            © {year}{" "}
-            <span className="text-[#C9A84C]/70 font-semibold">NAAAS Holding Group</span>
+            &copy; {year}{" "}
+            <span className="text-[#C9A84C]/50 font-semibold">NAAAS Holding Group</span>
             . All rights reserved.
           </p>
-          <p>Building & Venture BD Ltd.</p>
+          <p className="tracking-wider">Building & Venture BD Ltd.</p>
         </div>
       </div>
 
       {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C9A84C]/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
     </footer>
   );
 }
