@@ -75,7 +75,7 @@ function StatCard({ stat, active }: { stat: typeof stats[0]; active: boolean }) 
         {count}{stat.suffix}
       </div>
       <div className="w-10 h-[1px] mb-3 opacity-40" style={{ background: stat.color }} />
-      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/30">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-foreground-muted/50">
         {stat.label}
       </p>
     </div>
@@ -149,7 +149,7 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section id="about" className="relative py-28 md:py-40 bg-[#0D1220] overflow-hidden noise-overlay" ref={sectionRef}>
+    <section id="about" className="relative py-28 md:py-40 bg-surface overflow-hidden noise-overlay" ref={sectionRef}>
       {/* Top and bottom borders */}
       <div className="absolute top-0 left-0 right-0 h-px divider-gold" />
       <div className="absolute bottom-0 left-0 right-0 h-px divider-gold" />
@@ -168,14 +168,14 @@ export default function AboutSection() {
           <p data-reveal className="text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-4">
             Who We Are
           </p>
-          <h2 data-reveal className="font-display font-bold section-title text-white mb-4 leading-tight">
+          <h2 data-reveal className="font-display font-bold section-title text-foreground mb-4 leading-tight">
             NAAAS <span className="gradient-text">Holding Group</span>
           </h2>
-          <p data-reveal className="text-white/25 text-sm tracking-[0.2em] uppercase mb-10">
+          <p data-reveal className="text-foreground-muted/40 text-sm tracking-[0.2em] uppercase mb-10">
             Building & Venture BD Ltd.
           </p>
           <div data-reveal className="divider-gold w-48 mx-auto mb-10" />
-          <p data-reveal className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p data-reveal className="text-foreground-muted text-lg max-w-2xl mx-auto leading-relaxed">
             A <span className="text-[#C9A84C] font-semibold">diversified conglomerate</span> operating
             across multiple high-growth sectors — logistics, real estate, agriculture, events & marketing,
             medical technology, and travel & hospitality.
@@ -183,9 +183,9 @@ export default function AboutSection() {
         </div>
 
         {/* Stats */}
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden mb-24">
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-px bg-foreground-muted/10 rounded-2xl overflow-hidden mb-24">
           {stats.map((stat) => (
-            <div key={stat.label} className="bg-[#0D1220] hover:bg-[#0f1525] transition-colors duration-500">
+            <div key={stat.label} className="bg-surface hover:bg-surface-2 transition-colors duration-500">
               <StatCard stat={stat} active={active} />
             </div>
           ))}
@@ -196,14 +196,14 @@ export default function AboutSection() {
           {values.map((item) => (
             <div
               key={item.title}
-              className="value-card group relative p-8 md:p-10 rounded-2xl bg-[#080B12] hover-gold-border transition-all duration-500"
+              className="value-card group relative p-8 md:p-10 rounded-2xl bg-background hover-gold-border transition-all duration-500"
             >
               {/* Icon */}
               <div className="w-14 h-14 rounded-xl bg-[#C9A84C]/8 border border-[#C9A84C]/15 flex items-center justify-center text-[#C9A84C] mb-6 group-hover:bg-[#C9A84C]/15 group-hover:scale-110 transition-all duration-500">
                 {item.icon}
               </div>
-              <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
-              <p className="text-white/40 text-sm leading-relaxed">{item.description}</p>
+              <h3 className="text-lg font-bold text-foreground mb-3">{item.title}</h3>
+              <p className="text-foreground-muted text-sm leading-relaxed">{item.description}</p>
               {/* Bottom accent */}
               <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
             </div>
