@@ -209,7 +209,7 @@ export default function ContactSection() {
                 </div>
                 <button
                   type="submit"
-                  className="magnetic-btn group w-full py-4 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#080B12] font-bold text-sm uppercase tracking-[0.15em] hover:shadow-gold-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden"
+                  className="magnetic-btn group w-full py-4 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#080B12] font-bold text-sm uppercase tracking-[0.15em] hover:shadow-[0_16px_48px_rgba(201,168,76,0.35)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden"
                 >
                   Send Message
                   <svg className="w-4 h-4 transition-transform group-hover:translate-x-1.5 duration-300" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -226,7 +226,7 @@ export default function ContactSection() {
               <a
                 key={info.label}
                 href={info.href}
-                className="group flex items-center gap-5 p-5 rounded-xl bg-[#0D1220] hover-gold-border transition-all duration-300 block"
+                className="group flex items-center gap-5 p-5 rounded-xl bg-[#0D1220] hover-gold-border transition-all duration-300"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/8 border border-[#C9A84C]/15 flex items-center justify-center text-[#C9A84C] flex-shrink-0 group-hover:bg-[#C9A84C]/15 group-hover:scale-110 transition-all duration-500">
                   {info.icon}

@@ -252,7 +252,7 @@ export default function BusinessGrid() {
         <div ref={ctaRef} className="text-center mt-16">
           <a
             href="#contact"
-            className="magnetic-btn inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] text-[#080B12] bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-gold-lg hover:scale-105 transition-all duration-300 overflow-hidden"
+            className="magnetic-btn inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold uppercase tracking-[0.15em] text-[#080B12] bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] hover:shadow-[0_16px_48px_rgba(201,168,76,0.35)] hover:scale-105 transition-all duration-300 overflow-hidden"
           >
             Explore Opportunities
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">

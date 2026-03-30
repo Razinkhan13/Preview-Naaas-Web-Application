@@ -332,7 +332,7 @@ export default function HeroSlider() {
             </a>
             <a
               href="#about"
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold tracking-[0.15em] uppercase text-white/50 border border-white/15 hover:border-white/40 hover:text-white transition-all duration-400"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold tracking-[0.15em] uppercase text-white/50 border border-white/15 hover:border-white/40 hover:text-white transition-all duration-[400ms]"
             >
               Learn More
             </a>
