@@ -99,7 +99,7 @@ export default function Navbar() {
             ))}
             <a
               href="#contact"
-              className="magnetic-btn px-6 py-2.5 text-[13px] font-semibold tracking-wider uppercase border border-[#C9A84C]/50 text-[#C9A84C] rounded-full hover:bg-[#C9A84C] hover:text-[#080B12] transition-all duration-400 hover:shadow-gold overflow-hidden"
+              className="magnetic-btn px-6 py-2.5 text-[13px] font-semibold tracking-wider uppercase border border-[#C9A84C]/50 text-[#C9A84C] rounded-full hover:bg-[#C9A84C] hover:text-[#080B12] transition-all duration-[400ms] hover:shadow-[0_8px_32px_rgba(201,168,76,0.25)] overflow-hidden"
             >
               <span className="btn-fill" />
               <span className="btn-text">Get In Touch</span>

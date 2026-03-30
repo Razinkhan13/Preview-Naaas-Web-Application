@@ -118,7 +118,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 bg-[#080B12] flex flex-col"
+      className="fixed inset-0 z-[60] bg-[#080B12] flex flex-col"
       role="dialog"
       aria-modal="true"
       aria-label="Navigation menu"
@@ -145,13 +145,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             key={link.label}
             href={link.href}
             onClick={onClose}
-            className="nav-link group flex items-center gap-5 py-5 border-b border-white/5 hover:border-[#C9A84C]/25 transition-all duration-400"
+            className="nav-link group flex items-center gap-5 py-5 border-b border-white/5 hover:border-[#C9A84C]/25 transition-all duration-[400ms]"
           >
             <span className="text-xs font-mono text-[#C9A84C]/30 group-hover:text-[#C9A84C]/60 transition-colors">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="w-0 h-px bg-[#C9A84C]/60 group-hover:w-8 transition-all duration-500" />
-            <span className="text-3xl font-light text-white/60 group-hover:text-white tracking-wide transition-all duration-400 font-display">
+            <span className="text-3xl font-light text-white/60 group-hover:text-white tracking-wide transition-all duration-[400ms] font-display">
               {link.label}
             </span>
           </a>
