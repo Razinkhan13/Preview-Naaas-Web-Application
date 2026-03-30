@@ -87,7 +87,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-white flex flex-col items-center"
+      className="fixed inset-0 z-50 bg-[#080D1A] flex flex-col items-center"
       role="dialog"
       aria-modal="true"
       aria-label="Navigation menu"
@@ -97,7 +97,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <button
           onClick={onClose}
           aria-label="Close menu"
-          className="text-gray-900 hover:opacity-60 transition-opacity"
+          className="text-[#C9A84C] hover:opacity-60 transition-opacity"
         >
           <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -107,7 +107,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       </div>
 
       {/* Social icons row */}
-      <div className="flex items-center gap-6 mt-4 mb-12 text-gray-700">
+      <div className="flex items-center gap-6 mt-4 mb-12 text-[#8A9ABB]">
         {socialLinks.map((s) => (
           <a
             key={s.label}
@@ -127,7 +127,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             key={link.label}
             href={link.href}
             onClick={onClose}
-            className="w-full text-center py-5 text-xl text-gray-900 border-b border-gray-200 hover:text-[#C9A84C] transition-colors font-light tracking-wide"
+            className="w-full text-center py-5 text-xl text-[#F0F4FF] border-b border-[#C9A84C]/15 hover:text-[#C9A84C] transition-colors font-light tracking-wide"
           >
             {link.label}
           </a>

@@ -77,11 +77,11 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+    <footer className="bg-[#050A14] text-white relative overflow-hidden">
       {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-[0.04]">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+          backgroundImage: 'radial-gradient(circle at 2px 2px, #C9A84C 1px, transparent 0)',
           backgroundSize: '40px 40px'
         }} />
       </div>
@@ -169,7 +169,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-8" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent mb-8" />
 
         {/* Bottom footer */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">

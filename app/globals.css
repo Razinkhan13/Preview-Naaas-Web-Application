@@ -4,8 +4,13 @@
   --gold: #C9A84C;
   --gold-dark: #A8892A;
   --gold-light: #E8C96A;
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080D1A;
+  --surface: #0D1526;
+  --card: #111C35;
+  --card-hover: #162040;
+  --foreground: #F0F4FF;
+  --muted: #8A9ABB;
+  --border: rgba(201, 168, 76, 0.18);
   --navbar-height: 80px;
 }
 
@@ -146,10 +151,10 @@ body {
 
 /* Glass morphism effect */
 .glass-effect {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(13, 21, 38, 0.6);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border);
 }
 
 /* Gradient text */
@@ -162,11 +167,16 @@ body {
 
 /* Premium shadow effects */
 .shadow-premium {
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .shadow-gold {
   box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+}
+
+/* Dark card shadow */
+.shadow-card-dark {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* Smooth reveal on scroll */

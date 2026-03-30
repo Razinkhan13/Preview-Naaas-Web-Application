@@ -55,9 +55,9 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden" ref={sectionRef}>
+    <section id="about" className="py-24 bg-[#0D1526] relative overflow-hidden" ref={sectionRef}>
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-[0.03]">
+      <div className="absolute inset-0 opacity-[0.06]">
         <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#C9A84C] to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-[#C9A84C] to-transparent rounded-full blur-3xl" />
       </div>
@@ -68,23 +68,23 @@ export default function AboutSection() {
           <span className={`inline-block text-xs font-semibold tracking-[0.3em] text-[#C9A84C] uppercase mb-4 transition-all duration-700 ${visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Who We Are
           </span>
-          <h2 className={`text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-3 transition-all duration-700 delay-100 ${visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <h2 className={`text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-3 transition-all duration-700 delay-100 ${visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <span className="gradient-text">NAAAS HOLDING GROUP</span>
           </h2>
-          <p className={`text-sm text-gray-500 tracking-widest uppercase mb-6 transition-all duration-700 delay-200 ${visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <p className={`text-sm text-[#8A9ABB] tracking-widest uppercase mb-6 transition-all duration-700 delay-200 ${visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Building & Venture BD
           </p>
           <div className={`w-24 h-1 bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] mx-auto rounded-full mb-8 transition-all duration-700 delay-300 ${visibleStats ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
           {/* Description */}
           <div className={`max-w-3xl mx-auto transition-all duration-700 delay-400 ${visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <p className="text-gray-700 text-lg leading-relaxed mb-4">
+            <p className="text-[#C0C8DC] text-lg leading-relaxed mb-4">
               NAAAS Holding Group is a <span className="font-semibold text-[#C9A84C]">diversified conglomerate</span> operating across multiple
               high-growth sectors including logistics, real estate, agriculture, events &
               marketing, medical technology, and travel & hospitality.
             </p>
-            <p className="text-gray-600 leading-relaxed">
-              Committed to <span className="font-semibold">innovation and excellence</span>, we build sustainable futures across the region,
+            <p className="text-[#8A9ABB] leading-relaxed">
+              Committed to <span className="font-semibold text-white">innovation and excellence</span>, we build sustainable futures across the region,
               delivering exceptional value to our stakeholders and communities.
             </p>
           </div>
@@ -93,14 +93,14 @@ export default function AboutSection() {
         {/* Premium stats grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16">
           {[
-            { value: counters.business, suffix: "+", label: "Business Units", color: "from-blue-500 to-cyan-500", delay: "delay-500" },
-            { value: counters.years, suffix: "+", label: "Years of Excellence", color: "from-purple-500 to-pink-500", delay: "delay-600" },
-            { value: counters.team, suffix: "+", label: "Team Members", color: "from-green-500 to-emerald-500", delay: "delay-700" },
-            { value: counters.countries, suffix: "+", label: "Countries", color: "from-amber-500 to-orange-500", delay: "delay-[800ms]" },
-          ].map((stat, index) => (
+            { value: counters.business, suffix: "+", label: "Business Units", color: "from-[#C9A84C] to-[#E8C96A]", delay: "delay-500" },
+            { value: counters.years, suffix: "+", label: "Years of Excellence", color: "from-[#C9A84C] to-[#E8C96A]", delay: "delay-600" },
+            { value: counters.team, suffix: "+", label: "Team Members", color: "from-[#C9A84C] to-[#E8C96A]", delay: "delay-700" },
+            { value: counters.countries, suffix: "+", label: "Countries", color: "from-[#C9A84C] to-[#E8C96A]", delay: "delay-[800ms]" },
+          ].map((stat) => (
             <div
               key={stat.label}
-              className={`group relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ${stat.delay} ${
+              className={`group relative p-8 bg-[#111C35] border border-[#C9A84C]/15 hover:border-[#C9A84C]/40 rounded-2xl hover:shadow-2xl transition-all duration-500 shadow-card-dark ${stat.delay} ${
                 visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
@@ -113,7 +113,7 @@ export default function AboutSection() {
                   {stat.value}{stat.suffix}
                 </div>
                 <div className={`w-12 h-1 bg-gradient-to-r ${stat.color} rounded-full mb-3 group-hover:w-16 transition-all duration-300`} />
-                <span className="text-xs md:text-sm font-semibold tracking-widest text-gray-600 uppercase">
+                <span className="text-xs md:text-sm font-semibold tracking-widest text-[#8A9ABB] uppercase">
                   {stat.label}
                 </span>
               </div>
@@ -142,10 +142,10 @@ export default function AboutSection() {
               title: "Our Values",
               description: "Integrity, innovation, excellence, and commitment to sustainable growth and community development"
             }
-          ].map((item, index) => (
+          ].map((item) => (
             <div
               key={item.title}
-              className="group relative p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-100 hover:border-[#C9A84C]/30 hover:shadow-lg transition-all duration-300"
+              className="group relative p-6 bg-[#111C35] border border-[#C9A84C]/15 hover:border-[#C9A84C]/40 rounded-xl hover:shadow-lg transition-all duration-300 shadow-card-dark"
             >
               {/* Icon */}
               <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -153,17 +153,17 @@ export default function AboutSection() {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-bold text-white mb-3">
                 {item.title}
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 leading-relaxed text-sm">
+              <p className="text-[#8A9ABB] leading-relaxed text-sm">
                 {item.description}
               </p>
 
               {/* Decorative element */}
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#C9A84C] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-xl" />
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#C9A84C] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-xl" />
             </div>
           ))}
         </div>

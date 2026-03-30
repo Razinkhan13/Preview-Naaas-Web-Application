@@ -8,60 +8,60 @@ const slides = [
     title: "NAAAS LOGISTICS",
     subtitle: "Connecting the world through excellence in logistics",
     description: "Global supply chain solutions with cutting-edge technology and unmatched reliability",
-    bg: "from-sky-900 via-blue-900 to-slate-900",
+    bg: "from-[#040C1E] via-[#071428] to-[#040C1E]",
     imagePlaceholder: "✈",
     emoji: "✈️",
-    accentColor: "from-sky-400 to-blue-500",
+    accentColor: "from-[#C9A84C] to-[#E8C96A]",
   },
   {
     id: 2,
     title: "NAAAS EVENTS & MARKETING",
     subtitle: "Creating unforgettable experiences across the region",
     description: "Transforming visions into extraordinary events that leave lasting impressions",
-    bg: "from-purple-900 via-pink-900 to-rose-900",
+    bg: "from-[#0D0518] via-[#150720] to-[#0D0518]",
     imagePlaceholder: "🎆",
     emoji: "🎆",
-    accentColor: "from-pink-400 to-rose-500",
+    accentColor: "from-[#C9A84C] to-[#E8C96A]",
   },
   {
     id: 3,
     title: "NAAAS REAL ESTATE",
     subtitle: "Building tomorrow's landmarks today",
     description: "Developing premium properties that redefine urban living and commercial spaces",
-    bg: "from-indigo-900 via-purple-900 to-violet-900",
+    bg: "from-[#060D1F] via-[#0A1530] to-[#060D1F]",
     imagePlaceholder: "🏙",
     emoji: "🏙️",
-    accentColor: "from-indigo-400 to-purple-500",
+    accentColor: "from-[#C9A84C] to-[#E8C96A]",
   },
   {
     id: 4,
     title: "NAAAS AGRICULTURE",
     subtitle: "Sustainable farming for a greener future",
     description: "Innovation in agriculture for environmental sustainability and food security",
-    bg: "from-green-900 via-emerald-900 to-teal-800",
+    bg: "from-[#040F0A] via-[#071A10] to-[#040F0A]",
     imagePlaceholder: "🌾",
     emoji: "🌾",
-    accentColor: "from-green-400 to-emerald-500",
+    accentColor: "from-[#C9A84C] to-[#E8C96A]",
   },
   {
     id: 5,
     title: "MEDICAL TECH FOR MEDICINES",
     subtitle: "Healthcare innovation for a healthier tomorrow",
     description: "Advanced medical technology solutions improving lives worldwide",
-    bg: "from-cyan-900 via-teal-900 to-blue-900",
+    bg: "from-[#030E18] via-[#061524] to-[#030E18]",
     imagePlaceholder: "⚕",
     emoji: "⚕️",
-    accentColor: "from-cyan-400 to-teal-500",
+    accentColor: "from-[#C9A84C] to-[#E8C96A]",
   },
   {
     id: 6,
     title: "NAAAS TRAVEL & HOSPITALITY",
     subtitle: "Exceptional journeys and unparalleled hospitality",
     description: "Crafting memorable travel experiences with world-class service",
-    bg: "from-amber-900 via-orange-900 to-red-900",
+    bg: "from-[#100A02] via-[#1A1004] to-[#100A02]",
     imagePlaceholder: "🏨",
     emoji: "🏨",
-    accentColor: "from-amber-400 to-orange-500",
+    accentColor: "from-[#C9A84C] to-[#E8C96A]",
   },
 ];
 
@@ -219,7 +219,7 @@ export default function HeroSlider() {
       </button>
 
       {/* Enhanced dot navigation */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 px-6 py-3 rounded-full bg-black/20 backdrop-blur-md border border-white/20">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 px-6 py-3 rounded-full bg-black/40 backdrop-blur-md border border-[#C9A84C]/30">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -227,15 +227,15 @@ export default function HeroSlider() {
             aria-label={`Go to slide ${i + 1}`}
             className={`transition-all duration-300 rounded-full ${
               i === current
-                ? "bg-white w-8 h-3"
-                : "bg-white/50 hover:bg-white/70 w-3 h-3"
+                ? "bg-[#C9A84C] w-8 h-3"
+                : "bg-[#C9A84C]/30 hover:bg-[#C9A84C]/60 w-3 h-3"
             }`}
           />
         ))}
       </div>
 
       {/* Slide counter */}
-      <div className="absolute top-6 right-6 text-white/80 text-sm font-medium bg-black/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+      <div className="absolute top-6 right-6 text-[#C9A84C] text-sm font-medium bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-[#C9A84C]/30">
         {current + 1} / {slides.length}
       </div>
     </section>
