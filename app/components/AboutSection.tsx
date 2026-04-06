@@ -73,6 +73,27 @@ export default function AboutSection() {
             marketing, medical technology, and travel & hospitality. Committed to innovation
             and excellence, we build sustainable futures across the region.
           </p>
+          <h2 data-reveal className="font-display font-bold section-title text-foreground mb-4 leading-tight">
+            NAAAS <span className="gradient-text">Holding Group</span>
+          </h2>
+          <p data-reveal className="text-foreground-muted/40 text-sm tracking-[0.2em] uppercase mb-10">
+            Building & Venture BD Ltd.
+          </p>
+          <div data-reveal className="divider-gold w-48 mx-auto mb-10" />
+          <p data-reveal className="text-foreground-muted text-lg max-w-2xl mx-auto leading-relaxed">
+            A <span className="text-[#C9A84C] font-semibold">diversified conglomerate</span> operating
+            across multiple high-growth sectors — logistics, real estate, agriculture, events & marketing,
+            medical technology, and travel & hospitality.
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-px bg-foreground-muted/10 rounded-2xl overflow-hidden mb-24">
+          {stats.map((stat) => (
+            <div key={stat.label} className="bg-surface hover:bg-surface-2 transition-colors duration-500">
+              <StatCard stat={stat} active={active} />
+            </div>
+          ))}
         </div>
 
         {/* Stats row */}
